@@ -1,0 +1,1082 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>AGENTOS — Hire AI Employees. Scale Without Limits.</title>
+  <meta name="description" content="AGENTOS is the operating system for digital employees — AI agents that work 24/7 across sales, support, and operations." />
+  <meta name="theme-color" content="#0F1115" />
+
+  <!-- Font (Inter). If you have Satoshi, swap the heading font in CSS. -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    :root{
+      /* Core palette */
+      --bg: #0F1115;
+      --text: #EDEDED;
+      --muted: rgba(237,237,237,.72);
+      --faint: rgba(237,237,237,.08);
+      --faint-2: rgba(237,237,237,.12);
+
+      --accent: #7FA99B;       /* Muted Sage Green */
+      --accent-2: #3A5A72;     /* Deep Slate Blue (sparingly) */
+
+      /* Premium neutrals */
+      --card: rgba(255,255,255,.04);
+      --card-border: rgba(255,255,255,.08);
+
+      --shadow: 0 12px 40px rgba(0,0,0,.45);
+      --radius: 18px;
+      --radius-lg: 26px;
+
+      --max: 1120px;
+    }
+
+    *{ box-sizing:border-box; }
+    html,body{ height:100%; }
+    body{
+      margin:0;
+      background: radial-gradient(1200px 600px at 20% -10%, rgba(127,169,155,.10), transparent 55%),
+                  radial-gradient(900px 500px at 90% 10%, rgba(58,90,114,.12), transparent 50%),
+                  var(--bg);
+      color:var(--text);
+      font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      line-height:1.55;
+      letter-spacing: -0.01em;
+    }
+
+    a{ color:inherit; text-decoration:none; }
+    .container{ width:100%; max-width:var(--max); margin:0 auto; padding: 0 20px; }
+
+    /* Subtle grid texture for "expensive" */
+    .texture{
+      position: fixed;
+      inset: 0;
+      pointer-events:none;
+      background-image:
+        linear-gradient(to right, rgba(255,255,255,.035) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(255,255,255,.035) 1px, transparent 1px);
+      background-size: 56px 56px;
+      mask-image: radial-gradient(circle at 50% 20%, rgba(0,0,0,1), rgba(0,0,0,.25) 55%, rgba(0,0,0,0) 80%);
+      opacity:.25;
+    }
+
+    /* Nav */
+    header{
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      backdrop-filter: blur(14px);
+      background: rgba(15,17,21,.55);
+      border-bottom: 1px solid rgba(255,255,255,.06);
+    }
+    .nav{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      padding: 14px 0;
+    }
+    .brand{
+      display:flex; align-items:center; gap:10px;
+      font-weight: 650;
+      letter-spacing: .06em;
+      text-transform: uppercase;
+      font-size: 13px;
+    }
+    .dot{
+      width:10px; height:10px; border-radius:999px;
+      background: var(--accent);
+      box-shadow: 0 0 0 6px rgba(127,169,155,.10);
+    }
+    .navlinks{
+      display:flex; align-items:center; gap:18px;
+      color: var(--muted);
+      font-size: 14px;
+    }
+    .navlinks a{ 
+      padding: 8px 10px; 
+      border-radius: 10px;
+      transition: all 0.2s ease;
+    }
+    .navlinks a:hover{ 
+      background: rgba(255,255,255,.04); 
+      color: var(--text); 
+    }
+    .navlinks a.active {
+      color: var(--accent);
+      border-bottom: 2px solid var(--accent);
+    }
+
+    .menu-toggle {
+      display: none;
+      flex-direction: column;
+      cursor: pointer;
+      gap: 5px;
+    }
+    .menu-toggle span {
+      width: 24px;
+      height: 2px;
+      background: var(--text);
+      border-radius: 2px;
+      transition: all 0.3s ease;
+    }
+
+    /* Buttons */
+    .btn{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      gap:10px;
+      border-radius: 999px;
+      padding: 12px 18px;
+      font-weight: 600;
+      font-size: 14px;
+      border: 1px solid rgba(255,255,255,.10);
+      transition: transform .15s ease, background .15s ease, border-color .15s ease;
+      will-change: transform;
+      user-select:none;
+      cursor: pointer;
+    }
+    .btn:active{ transform: translateY(1px); }
+    .btn-primary{
+      background: linear-gradient(180deg, rgba(127,169,155,.95), rgba(127,169,155,.80));
+      color: #0B0D10;
+      border-color: rgba(127,169,155,.55);
+    }
+    .btn-primary:hover{
+      background: linear-gradient(180deg, rgba(127,169,155,1), rgba(127,169,155,.86));
+      border-color: rgba(127,169,155,.75);
+    }
+    .btn-ghost{
+      background: rgba(255,255,255,.03);
+      color: var(--text);
+    }
+    .btn-ghost:hover{ background: rgba(255,255,255,.06); border-color: rgba(255,255,255,.18); }
+
+    /* Sections */
+    section{ padding: 64px 0; }
+    .eyebrow{
+      display:inline-flex;
+      gap:10px;
+      align-items:center;
+      font-size: 12px;
+      letter-spacing:.08em;
+      text-transform: uppercase;
+      color: rgba(237,237,237,.72);
+      background: rgba(255,255,255,.03);
+      border: 1px solid rgba(255,255,255,.07);
+      padding: 10px 12px;
+      border-radius: 999px;
+      animation: fadeInUp 0.6s ease;
+    }
+    .eyebrow b{ color: var(--text); font-weight: 650; }
+    h1,h2,h3{ margin:0; letter-spacing: -0.03em; }
+    h1{
+      font-size: clamp(40px, 5vw, 60px);
+      line-height: 1.05;
+      font-weight: 700;
+      animation: fadeInUp 0.8s ease 0.1s both;
+    }
+    h2{
+      font-size: clamp(28px, 3.4vw, 38px);
+      line-height: 1.15;
+      font-weight: 700;
+      animation: fadeInUp 0.6s ease both;
+    }
+    p{ margin:0; color: var(--muted); font-size: 16px; }
+
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes slideInLeft {
+      from {
+        opacity: 0;
+        transform: translateX(-20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateX(0);
+      }
+    }
+
+    .hero{
+      padding-top: 64px;
+      padding-bottom: 40px;
+    }
+    .hero-grid{
+      display:grid;
+      grid-template-columns: 1.15fr .85fr;
+      gap: 26px;
+      align-items: start;
+    }
+    .hero-copy{ padding-top: 10px; }
+    .lead{
+      margin-top: 16px;
+      font-size: 18px;
+      color: rgba(237,237,237,.78);
+      max-width: 62ch;
+      animation: fadeInUp 0.8s ease 0.2s both;
+    }
+    .cta-row{
+      display:flex; flex-wrap:wrap;
+      gap: 12px;
+      margin-top: 22px;
+      align-items:center;
+      animation: fadeInUp 0.8s ease 0.3s both;
+    }
+    .note{
+      margin-top: 14px;
+      font-size: 13px;
+      color: rgba(237,237,237,.62);
+      animation: fadeInUp 0.8s ease 0.4s both;
+    }
+    .note span{ color: rgba(127,169,155,.95); }
+
+    .hero-card{
+      border-radius: var(--radius-lg);
+      background: linear-gradient(180deg, rgba(255,255,255,.05), rgba(255,255,255,.03));
+      border: 1px solid rgba(255,255,255,.08);
+      box-shadow: var(--shadow);
+      padding: 18px;
+      animation: slideInLeft 0.8s ease 0.2s both;
+    }
+    .mini{
+      display:grid;
+      gap: 12px;
+    }
+    .mini-item{
+      padding: 14px;
+      border-radius: 16px;
+      border: 1px solid rgba(255,255,255,.07);
+      background: rgba(15,17,21,.35);
+      transition: all 0.3s ease;
+    }
+    .mini-item:hover {
+      border-color: rgba(127,169,155,.3);
+      background: rgba(127,169,155,.08);
+    }
+    .mini-item .k{
+      font-size: 12px;
+      letter-spacing:.08em;
+      text-transform: uppercase;
+      color: rgba(237,237,237,.65);
+    }
+    .mini-item .v{
+      margin-top: 6px;
+      font-size: 14px;
+      color: rgba(237,237,237,.86);
+    }
+
+    /* Problem */
+    .split{
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 26px;
+      align-items: start;
+    }
+    .bullets{
+      margin-top: 16px;
+      display:grid;
+      gap: 10px;
+      padding: 0;
+      list-style:none;
+    }
+    .bullets li{
+      display:flex; gap:10px;
+      padding: 12px 12px;
+      border-radius: 14px;
+      background: rgba(255,255,255,.03);
+      border: 1px solid rgba(255,255,255,.06);
+      color: rgba(237,237,237,.78);
+      transition: all 0.3s ease;
+    }
+    .bullets li:hover {
+      background: rgba(127,169,155,.08);
+      border-color: rgba(127,169,155,.2);
+    }
+    .tick{
+      width: 18px; height: 18px;
+      border-radius: 6px;
+      background: rgba(127,169,155,.18);
+      border: 1px solid rgba(127,169,155,.32);
+      flex: 0 0 auto;
+      margin-top: 2px;
+    }
+    .quote{
+      margin-top: 14px;
+      padding: 18px;
+      border-radius: var(--radius);
+      border: 1px solid rgba(127,169,155,.22);
+      background: rgba(127,169,155,.06);
+      color: rgba(237,237,237,.88);
+      font-weight: 550;
+    }
+
+    /* Cards */
+    .cards{
+      margin-top: 18px;
+      display:grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 14px;
+    }
+    .card{
+      padding: 18px;
+      border-radius: var(--radius);
+      background: var(--card);
+      border: 1px solid var(--card-border);
+      transition: all 0.3s ease;
+    }
+    .card:hover {
+      background: rgba(255,255,255,.06);
+      border-color: rgba(127,169,155,.3);
+      transform: translateY(-4px);
+    }
+    .card h3{
+      font-size: 16px;
+      font-weight: 650;
+      margin-bottom: 8px;
+    }
+    .pill{
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      padding: 8px 10px;
+      border-radius: 999px;
+      background: rgba(58,90,114,.12);
+      border: 1px solid rgba(58,90,114,.22);
+      color: rgba(237,237,237,.80);
+      font-size: 13px;
+      margin-top: 10px;
+    }
+
+    /* Steps */
+    .steps{
+      margin-top: 18px;
+      display:grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 12px;
+    }
+    .step{
+      padding: 16px;
+      border-radius: var(--radius);
+      border: 1px solid rgba(255,255,255,.08);
+      background: rgba(255,255,255,.03);
+      transition: all 0.3s ease;
+    }
+    .step:hover {
+      border-color: rgba(127,169,155,.3);
+      background: rgba(127,169,155,.06);
+    }
+    .step .n{
+      width: 34px; height: 34px;
+      border-radius: 12px;
+      display:flex; align-items:center; justify-content:center;
+      background: rgba(127,169,155,.14);
+      border: 1px solid rgba(127,169,155,.26);
+      color: rgba(237,237,237,.88);
+      font-weight: 700;
+      margin-bottom: 10px;
+    }
+    .step b{ display:block; font-size: 14px; margin-bottom: 6px; }
+    .step span{ color: rgba(237,237,237,.70); font-size: 13px; }
+
+    /* Social proof */
+    .proof{
+      padding: 22px;
+      border-radius: var(--radius-lg);
+      background: linear-gradient(180deg, rgba(255,255,255,.05), rgba(255,255,255,.03));
+      border: 1px solid rgba(255,255,255,.08);
+    }
+    .proof blockquote{
+      margin:0;
+      font-size: 18px;
+      font-weight: 600;
+      color: rgba(237,237,237,.90);
+      letter-spacing: -0.02em;
+    }
+    .proof .sub{
+      margin-top: 10px;
+      color: rgba(237,237,237,.68);
+      font-size: 14px;
+    }
+
+    /* Pricing */
+    .pricing{
+      margin-top: 18px;
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+    }
+    .price{
+      padding: 20px;
+      border-radius: var(--radius-lg);
+      border: 1px solid rgba(255,255,255,.10);
+      background: rgba(255,255,255,.03);
+      transition: all 0.3s ease;
+    }
+    .price:hover {
+      border-color: rgba(255,255,255,.15);
+    }
+    .price.featured{
+      border-color: rgba(127,169,155,.30);
+      background: linear-gradient(180deg, rgba(127,169,155,.09), rgba(255,255,255,.03));
+    }
+    .price.featured:hover {
+      border-color: rgba(127,169,155,.5);
+      box-shadow: 0 0 20px rgba(127,169,155,.1);
+    }
+    .price .top{
+      display:flex; align-items:baseline; justify-content:space-between;
+      gap: 12px;
+    }
+    .price h3{ font-size: 16px; font-weight: 700; }
+    .tag{
+      font-size: 12px;
+      padding: 8px 10px;
+      border-radius: 999px;
+      border: 1px solid rgba(127,169,155,.28);
+      background: rgba(127,169,155,.10);
+      color: rgba(237,237,237,.85);
+    }
+    .amount{
+      margin-top: 12px;
+      font-size: 34px;
+      font-weight: 750;
+      letter-spacing: -0.04em;
+    }
+    .amount small{
+      font-size: 14px;
+      font-weight: 600;
+      color: rgba(237,237,237,.62);
+    }
+    .list{
+      margin-top: 14px;
+      display:grid; gap: 10px;
+      padding:0;
+      list-style:none;
+    }
+    .list li{
+      display:flex; gap:10px;
+      color: rgba(237,237,237,.76);
+      font-size: 14px;
+    }
+    .list li::before{
+      content:"";
+      width: 10px; height: 10px;
+      border-radius: 3px;
+      margin-top: 6px;
+      background: rgba(127,169,155,.65);
+      box-shadow: 0 0 0 4px rgba(127,169,155,.10);
+      flex: 0 0 auto;
+    }
+
+    /* Final CTA */
+    .final{
+      padding: 22px;
+      border-radius: var(--radius-lg);
+      border: 1px solid rgba(255,255,255,.10);
+      background: radial-gradient(600px 300px at 20% 0%, rgba(127,169,155,.14), transparent 55%),
+                  rgba(255,255,255,.03);
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap: 18px;
+    }
+    .final p{ max-width: 60ch; }
+
+    /* Form Styles */
+    .form-group {
+      margin-bottom: 14px;
+      display: flex;
+      flex-direction: column;
+    }
+    .form-group label {
+      font-size: 13px;
+      font-weight: 600;
+      margin-bottom: 6px;
+      color: rgba(237,237,237,.85);
+    }
+    .form-group input,
+    .form-group select {
+      padding: 10px 14px;
+      border-radius: 10px;
+      border: 1px solid rgba(255,255,255,.10);
+      background: rgba(255,255,255,.03);
+      color: var(--text);
+      font-size: 14px;
+      font-family: inherit;
+      transition: all 0.2s ease;
+    }
+    .form-group input:focus,
+    .form-group select:focus {
+      outline: none;
+      border-color: rgba(127,169,155,.5);
+      background: rgba(255,255,255,.06);
+      box-shadow: 0 0 0 3px rgba(127,169,155,.1);
+    }
+    .form-group input::placeholder {
+      color: rgba(237,237,237,.5);
+    }
+    .form-error {
+      font-size: 12px;
+      color: #ff6b6b;
+      margin-top: 4px;
+    }
+    .form-success {
+      padding: 14px;
+      border-radius: 10px;
+      background: rgba(76, 175, 80, .1);
+      border: 1px solid rgba(76, 175, 80, .3);
+      color: rgba(76, 175, 80, .9);
+      font-size: 14px;
+      margin-bottom: 14px;
+    }
+    .modal {
+      display: none;
+      position: fixed;
+      z-index: 1000;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,.6);
+      backdrop-filter: blur(4px);
+      animation: fadeIn 0.3s ease;
+    }
+    .modal.active {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .modal-content {
+      background: var(--bg);
+      border: 1px solid rgba(255,255,255,.10);
+      border-radius: var(--radius-lg);
+      padding: 30px;
+      max-width: 500px;
+      width: 90%;
+      box-shadow: var(--shadow);
+      animation: slideUp 0.3s ease;
+    }
+    .modal-close {
+      float: right;
+      font-size: 28px;
+      font-weight: bold;
+      color: rgba(237,237,237,.6);
+      cursor: pointer;
+      line-height: 1;
+      margin-top: -10px;
+    }
+    .modal-close:hover {
+      color: var(--text);
+    }
+    @keyframes slideUp {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+      }
+      to {
+        opacity: 1;
+      }
+    }
+
+    footer{
+      padding: 34px 0 46px;
+      color: rgba(237,237,237,.55);
+      font-size: 13px;
+      border-top: 1px solid rgba(255,255,255,.06);
+    }
+
+    /* Responsive */
+    @media (max-width: 980px){
+      .hero-grid{ grid-template-columns: 1fr; }
+      .split{ grid-template-columns: 1fr; }
+      .cards{ grid-template-columns: repeat(2, 1fr); }
+      .steps{ grid-template-columns: repeat(2, 1fr); }
+      .pricing{ grid-template-columns: 1fr; }
+      .final{ flex-direction:column; align-items:flex-start; }
+      .navlinks{ display:none; }
+      .menu-toggle {
+        display: flex;
+      }
+    }
+
+    @media (max-width: 600px) {
+      .cards { grid-template-columns: 1fr; }
+      .steps { grid-template-columns: 1fr; }
+      section { padding: 40px 0; }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="texture"></div>
+
+  <header>
+    <div class="container">
+      <div class="nav">
+        <div class="brand">
+          <span class="dot"></span>
+          AGENTOS
+        </div>
+
+        <nav class="navlinks" aria-label="Primary" id="navMenu">
+          <a href="#agents" class="smooth-scroll">Agents</a>
+          <a href="#how" class="smooth-scroll">How it works</a>
+          <a href="#pricing" class="smooth-scroll">Pricing</a>
+        </nav>
+
+        <button class="btn btn-ghost" onclick="openDemoModal()">Request demo</button>
+        
+        <div class="menu-toggle" id="menuToggle">
+          <span></span>
+          <span></span>
+          <span></span>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="container">
+      <div class="hero-grid">
+        <div class="hero-copy">
+          <div class="eyebrow"><b>Calm infrastructure</b> for your digital workforce</div>
+          <h1 style="margin-top:14px;">Hire AI Employees.<br>Scale Without Limits.</h1>
+          <p class="lead">
+            AGENTOS is the operating system for digital employees — AI agents that work 24/7 across sales, support, and operations.
+          </p>
+
+          <div class="cta-row">
+            <button class="btn btn-primary" onclick="openDemoModal()">Hire Your First AI Agent</button>
+            <a class="btn btn-ghost smooth-scroll" href="#how">See how it works</a>
+          </div>
+
+          <div class="note">
+            <span>No credit card.</span> Early access only. Designed for teams that value reliability.
+          </div>
+        </div>
+
+        <aside class="hero-card" aria-label="Trust panel">
+          <div class="mini">
+            <div class="mini-item">
+              <div class="k">What you get</div>
+              <div class="v">A role-based AI agent you can deploy on Web or Telegram — with rules, guardrails, and monitoring.</div>
+            </div>
+            <div class="mini-item">
+              <div class="k">Why it's different</div>
+              <div class="v">Built to feel like hiring: choose a role, set goals, define boundaries, ship in days.</div>
+            </div>
+            <div class="mini-item">
+              <div class="k">Promise</div>
+              <div class="v">If you can train a human, you can train an AI agent.</div>
+            </div>
+          </div>
+        </aside>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROBLEM -->
+  <section>
+    <div class="container">
+      <div class="split">
+        <div>
+          <h2>Businesses Aren't Slow — They're Overloaded.</h2>
+          <ul class="bullets">
+            <li><span class="tick"></span><span>Too many repetitive tasks</span></li>
+            <li><span class="tick"></span><span>High hiring costs</span></li>
+            <li><span class="tick"></span><span>Missed leads & delayed replies</span></li>
+            <li><span class="tick"></span><span>Scaling feels painful</span></li>
+          </ul>
+          <div class="quote">Humans shouldn't do robot work.</div>
+        </div>
+
+        <div>
+          <h2 style="opacity:.92;">Meet your digital workforce.</h2>
+          <p style="margin-top:10px;">
+            Calm, role-based agents that do focused work — without creating chaos.
+          </p>
+
+          <div id="agents" class="cards">
+            <div class="card">
+              <h3>AI Sales Agent</h3>
+              <p>Qualifies leads & follows up automatically, so opportunities don't leak.</p>
+              <div class="pill">Use case: inbound forms → instant replies</div>
+            </div>
+            <div class="card">
+              <h3>AI Support Agent</h3>
+              <p>Handles customer queries 24/7 with consistent tone and clear escalation.</p>
+              <div class="pill">Use case: FAQs → tickets → handoff</div>
+            </div>
+            <div class="card">
+              <h3>AI Operations Agent</h3>
+              <p>Manages internal tasks & workflows, keeping your team unblocked.</p>
+              <div class="pill">Use case: SOPs → checklists → updates</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- HOW IT WORKS -->
+  <section id="how">
+    <div class="container">
+      <h2>How it works</h2>
+      <p style="margin-top:10px;">Four steps. No complexity theatre.</p>
+
+      <div class="steps">
+        <div class="step">
+          <div class="n">1</div>
+          <b>Choose an AI agent</b>
+          <span>Pick a role: Sales, Support, or Operations.</span>
+        </div>
+        <div class="step">
+          <div class="n">2</div>
+          <b>Set goals & rules (no code)</b>
+          <span>Define what "good" looks like and what's off-limits.</span>
+        </div>
+        <div class="step">
+          <div class="n">3</div>
+          <b>Deploy on Telegram / Web</b>
+          <span>Meet your users where they already are.</span>
+        </div>
+        <div class="step">
+          <div class="n">4</div>
+          <b>Monitor & improve</b>
+          <span>Review outcomes, tune prompts, and ship upgrades.</span>
+        </div>
+      </div>
+
+      <div class="quote" style="margin-top:16px;">
+        If you can train a human, you can train an AI agent.
+      </div>
+    </div>
+  </section>
+
+  <!-- SOCIAL PROOF -->
+  <section>
+    <div class="container">
+      <div class="proof">
+        <blockquote>"AI agents will be the most important skill of the next decade."</blockquote>
+        <div class="sub">Inspired by insights from industry leaders and creators. No fake testimonials — ever.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- VALUE -->
+  <section>
+    <div class="container">
+      <h2>Why businesses choose AGENTOS</h2>
+      <div class="cards" style="margin-top:14px;">
+        <div class="card">
+          <h3>Costs less than hiring one employee</h3>
+          <p>Start small with a single agent, prove ROI, then scale.</p>
+        </div>
+        <div class="card">
+          <h3>Works 24/7 without burnout</h3>
+          <p>Fast response times build trust and improve conversions.</p>
+        </div>
+        <div class="card">
+          <h3>Improves over time</h3>
+          <p>Learn from outcomes, refine playbooks, keep quality consistent.</p>
+        </div>
+      </div>
+
+      <div class="quote" style="margin-top:16px;">
+        One AI agent can replace hours of daily manual work.
+      </div>
+    </div>
+  </section>
+
+  <!-- PRICING -->
+  <section id="pricing">
+    <div class="container">
+      <h2>Pricing</h2>
+      <p style="margin-top:10px;">Keep it simple. Start small. Scale when ready.</p>
+
+      <div class="pricing">
+        <div class="price featured">
+          <div class="top">
+            <h3>Starter</h3>
+            <div class="tag">Most popular</div>
+          </div>
+          <div class="amount">₹4,999 <small>/ month / agent</small></div>
+          <ul class="list">
+            <li>1 AI Agent</li>
+            <li>Core features</li>
+            <li>Email support</li>
+            <li>Basic monitoring</li>
+          </ul>
+          <div style="margin-top:16px;">
+            <button class="btn btn-primary" onclick="openDemoModal()">Request Free Demo</button>
+          </div>
+        </div>
+
+        <div class="price">
+          <div class="top">
+            <h3>Growth</h3>
+            <div class="tag" style="border-color: rgba(255,255,255,.12); background: rgba(255,255,255,.04);">For teams</div>
+          </div>
+          <div class="amount">Custom <small>for multiple agents</small></div>
+          <ul class="list">
+            <li>Multiple agents</li>
+            <li>Team workflows</li>
+            <li>Priority support</li>
+            <li>Advanced monitoring</li>
+          </ul>
+          <div style="margin-top:16px;">
+            <button class="btn btn-ghost" onclick="openDemoModal()">Talk to us</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FINAL CTA + LEAD FORM -->
+  <section id="demo">
+    <div class="container">
+      <div class="final">
+        <div>
+          <h2>Start with one AI agent</h2>
+          <p style="margin-top:10px;">
+            Request a free demo. No credit card. Early access for teams committed to scaling smarter.
+          </p>
+        </div>
+        <button class="btn btn-primary" onclick="openDemoModal()">Request Demo</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="container">
+      <p style="margin-bottom: 16px; color: rgba(237,237,237,.72);">© 2026 AGENTOS. All rights reserved.</p>
+      <div style="display: flex; gap: 20px; font-size: 13px;">
+        <a href="#" style="color: rgba(237,237,237,.55); transition: color 0.2s ease;" onmouseover="this.style.color='rgba(237,237,237,.85)'" onmouseout="this.style.color='rgba(237,237,237,.55)'">Privacy Policy</a>
+        <a href="#" style="color: rgba(237,237,237,.55); transition: color 0.2s ease;" onmouseover="this.style.color='rgba(237,237,237,.85)'" onmouseout="this.style.color='rgba(237,237,237,.55)'">Terms of Service</a>
+        <a href="#" style="color: rgba(237,237,237,.55); transition: color 0.2s ease;" onmouseover="this.style.color='rgba(237,237,237,.85)'" onmouseout="this.style.color='rgba(237,237,237,.55)'">Contact Us</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- DEMO MODAL -->
+  <div id="demoModal" class="modal">
+    <div class="modal-content">
+      <span class="modal-close" onclick="closeDemoModal()">&times;</span>
+      <h2 style="margin-top: 0;">Request a Free Demo</h2>
+      <p style="margin-top: 8px;">Join early access. We'll show you how to hire your first AI agent.</p>
+      
+      <form id="demoForm" style="margin-top: 24px;">
+        <div class="form-group">
+          <label for="fullName">Full Name *</label>
+          <input type="text" id="fullName" name="fullName" required placeholder="John Doe">
+          <div class="form-error" id="fullNameError"></div>
+        </div>
+
+        <div class="form-group">
+          <label for="email">Work Email *</label>
+          <input type="email" id="email" name="email" required placeholder="john@company.com">
+          <div class="form-error" id="emailError"></div>
+        </div>
+
+        <div class="form-group">
+          <label for="company">Company Name *</label>
+          <input type="text" id="company" name="company" required placeholder="Your Company">
+          <div class="form-error" id="companyError"></div>
+        </div>
+
+        <div class="form-group">
+          <label for="agentType">Which agent interests you most? *</label>
+          <select id="agentType" name="agentType" required>
+            <option value="">Select an agent type</option>
+            <option value="sales">AI Sales Agent</option>
+            <option value="support">AI Support Agent</option>
+            <option value="operations">AI Operations Agent</option>
+          </select>
+          <div class="form-error" id="agentTypeError"></div>
+        </div>
+
+        <div id="successMessage" class="form-success" style="display: none;">
+          ✓ Thanks! We'll send you a demo link shortly.
+        </div>
+
+        <button type="submit" class="btn btn-primary" style="width: 100%; margin-top: 20px;">Get Demo Access</button>
+      </form>
+    </div>
+  </div>
+
+  <script>
+    // Smooth scrolling
+    document.querySelectorAll('.smooth-scroll').forEach(link => {
+      link.addEventListener('click', (e) => {
+        e.preventDefault();
+        const targetId = link.getAttribute('href');
+        const targetElement = document.querySelector(targetId);
+        if (targetElement) {
+          targetElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          updateActiveNav();
+        }
+      });
+    });
+
+    // Update active nav based on scroll position
+    function updateActiveNav() {
+      const sections = document.querySelectorAll('section[id]');
+      let current = '';
+      
+      sections.forEach(section => {
+        const sectionTop = section.offsetTop;
+        const sectionHeight = section.clientHeight;
+        if (scrollY >= sectionTop - 200) {
+          current = section.getAttribute('id');
+        }
+      });
+
+      document.querySelectorAll('.navlinks a').forEach(link => {
+        link.classList.remove('active');
+        if (link.getAttribute('href') === '#' + current) {
+          link.classList.add('active');
+        }
+      });
+    }
+
+    window.addEventListener('scroll', updateActiveNav);
+
+    // Modal functions
+    const demoModal = document.getElementById('demoModal');
+
+    function openDemoModal() {
+      demoModal.classList.add('active');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeDemoModal() {
+      demoModal.classList.remove('active');
+      document.body.style.overflow = 'auto';
+    }
+
+    // Close modal on outside click
+    window.addEventListener('click', (e) => {
+      if (e.target === demoModal) {
+        closeDemoModal();
+      }
+    });
+
+    // Form validation and submission
+    const demoForm = document.getElementById('demoForm');
+    demoForm.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      
+      // Clear previous errors
+      document.querySelectorAll('.form-error').forEach(el => el.textContent = '');
+      
+      // Validate form
+      const fullName = document.getElementById('fullName').value.trim();
+      const email = document.getElementById('email').value.trim();
+      const company = document.getElementById('company').value.trim();
+      const agentType = document.getElementById('agentType').value;
+      
+      let isValid = true;
+
+      if (!fullName) {
+        document.getElementById('fullNameError').textContent = 'Full name is required';
+        isValid = false;
+      }
+
+      if (!email) {
+        document.getElementById('emailError').textContent = 'Email is required';
+        isValid = false;
+      } else if (!validateEmail(email)) {
+        document.getElementById('emailError').textContent = 'Please enter a valid email';
+        isValid = false;
+      }
+
+      if (!company) {
+        document.getElementById('companyError').textContent = 'Company name is required';
+        isValid = false;
+      }
+
+      if (!agentType) {
+        document.getElementById('agentTypeError').textContent = 'Please select an agent type';
+        isValid = false;
+      }
+
+      if (!isValid) return;
+
+      // Show success message
+      const successMessage = document.getElementById('successMessage');
+      successMessage.style.display = 'block';
+
+      // Reset form
+      demoForm.reset();
+
+      // Send to backend (you can use Formspree, Firebase, or your own backend)
+      try {
+        // Example using Formspree (replace with your form endpoint)
+        // const response = await fetch('https://formspree.io/f/YOUR_FORM_ID', {
+        //   method: 'POST',
+        //   headers: {
+        //     'Content-Type': 'application/json',
+        //   },
+        //   body: JSON.stringify({
+        //     fullName,
+        //     email,
+        //     company,
+        //     agentType,
+        //     timestamp: new Date().toISOString()
+        //   })
+        // });
+
+        console.log('Demo request submitted:', { fullName, email, company, agentType });
+      } catch (error) {
+        console.error('Error submitting form:', error);
+      }
+
+      // Hide success after 3 seconds and close modal
+      setTimeout(() => {
+        successMessage.style.display = 'none';
+        closeDemoModal();
+      }, 3000);
+    });
+
+    // Email validation helper
+    function validateEmail(email) {
+      const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      return re.test(email);
+    }
+
+    // Mobile menu toggle
+    const menuToggle = document.getElementById('menuToggle');
+    const navMenu = document.getElementById('navMenu');
+
+    if (menuToggle) {
+      menuToggle.addEventListener('click', () => {
+        navMenu.style.display = navMenu.style.display === 'flex' ? 'none' : 'flex';
+      });
+    }
+  </script>
+</body>
+</html>
